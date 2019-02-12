@@ -6,11 +6,35 @@ App({
     wx.login({
       success: res => {
         code = res.code;
+        wx.request({
+          url: 'https://www.zyldingfang.com/weixin/account/OnLogin',
+          data:{code,code},
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          header: {
+            'content-type': 'application/json'
+          },// 设置请求的 header
+          success: function (res) {
+            console.log(res)
+            if (res.data.msg == 'OK') {
+              console.log(res.data.sessionId)
+            } else {
+              console.log(res.data.msg);
+            }
+          },
+          fail: function () {
+            console.log("index.js wx.request CheckCallUser fail");
+          },
+          complete: function () {
+            // complete
+          }
+        })
+        console.log(res)
             wx.getUserInfo({
               success: function (res) {
+                console.log(res)
                 wx.request({
                   url: 'https://www.zyldingfang.com/weixin/account/WxLogin',
-                  data: { code: code, encryptedData: res.encryptedData,iv:res.iv },
+                  data: { code: code, encryptedData: res.encryptedData,iv:res.iv,userinfo:res.rawData },
                   method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                   header: {
                     'content-type': 'application/json'
