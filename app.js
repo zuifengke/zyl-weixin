@@ -2,42 +2,44 @@
 App({
   onLaunch: function () {
     // 展示本地存储能力
+    var code;
     wx.login({
       success: res => {
-        //发起网络请求
-        wx.request({
-          //这是我自己的java服务器的接口，将login（）获得的code发送的服务器换取session_key
-          url: 'https://abc.anzhonghui.xyz/WxtestServlet/UserController?method=getUnionId',
-          data: {
-            js_code: res.code,
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          method: 'GET',
-          success: function (res) {
-            console.log(res.data.session_key)
-            //拿到session_key实例化WXBizDataCrypt（）这个函数在下面解密用
-            var pc = new WXBizDataCrypt(appId, res.data.session_key)
+        code = res.code;
             wx.getUserInfo({
               success: function (res) {
-                //拿到getUserInfo（）取得的res.encryptedData, res.iv，调用decryptData（）解密
-                var data = pc.decryptData(res.encryptedData, res.iv)
-                // data.unionId就是咱们要的东西了
-                app.globalData.unionid = data.unionId
-                console.log('解密后 unionid: ', app.globalData.unionid)
+                wx.request({
+                  url: 'https://www.zyldingfang.com/weixin/account/WxLogin',
+                  data: { code: code, encryptedData: res.encryptedData,iv:res.iv },
+                  method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                  header: {
+                    'content-type': 'application/json'
+                  },// 设置请求的 header
+                  success: function (res) {
+                    console.log(res)
+                    console.log(res.data.openid)
+                    
+                    if (res.statusCode == 200) {
+                    } else {
+                      console.log("index.js wx.request CheckCallUser statusCode" + res.statusCode);
+                    }
+                  },
+                  fail: function () {
+                    console.log("index.js wx.request CheckCallUser fail");
+                  },
+                  complete: function () {
+                    // complete
+                  }
+                })
+               
               },
               fail: function (res) {
                 console.log(res)
               }
             })
-          },
-          fail: function (res) { },
-          complete: function (res) { }
-        });
       }
     })
-  },
+          },
   globalData: {
     userInfo: null
   }
