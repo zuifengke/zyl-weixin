@@ -1,12 +1,41 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/room/index",
+    "pages/usercenter/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "状元乐",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "list":[{
+      "pagePath":"pages/index/index",
+      "text":"首页",
+      "iconPath": "images/icon_speed.png",
+      "selectedIconPath": "images/icon_speed_HL.png"
+    },
+    {
+      "pagePath": "pages/logs/logs",
+      "text": "日志",
+      "iconPath": "images/icon_account.png",
+      "selectedIconPath": "images/icon_account_HL.png"
+    },
+    {
+      "pagePath": "pages/room/index",
+      "text": "订房",
+      "iconPath": "images/icon_account.png",
+      "selectedIconPath": "images/icon_account_HL.png"
+    },
+    {
+      "pagePath": "pages/usercenter/index",
+      "text": "个人中心",
+      "iconPath": "images/icon_account.png",
+      "selectedIconPath": "images/icon_account_HL.png"
+    }]
   }
+
 }
