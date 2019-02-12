@@ -1,0 +1,35 @@
+<!--index.wxml-->
+<view class="page">
+  <view class="page__hd"></view><!--页头-->
+  <view class="page__bd page__bd_spacing">
+  <button class="weui-btn" type="primary">页面主操作 Normal</button>
+        <button class="weui-btn" type="primary" disabled="true">页面主操作 Disabled</button>
+
+        <button class="weui-btn" type="default">页面次要操作 Normal</button>
+        <button class="weui-btn" type="default" disabled="true">页面次要操作 Disabled</button>
+
+        <button class="weui-btn" type="warn">警告类操作 Normal</button>
+        <button class="weui-btn" type="warn" disabled="true">警告类操作 Disabled</button>
+
+        <view class="button-sp-area">
+            <button class="weui-btn" type="primary" plain="true">按钮</button>
+            <button class="weui-btn" type="primary" disabled="true" plain="true">按钮</button>
+
+            <button class="weui-btn" type="default" plain="true">按钮</button>
+            <button class="weui-btn" type="default" disabled="true" plain="true">按钮</button>
+
+            <button class="weui-btn mini-btn" type="primary" size="mini">按钮</button>
+            <button class="weui-btn mini-btn" type="default" size="mini">按钮</button>
+            <button class="weui-btn mini-btn" type="warn" size="mini">按钮</button>
+        </view>
+
+  </view><!--主体-->
+  <view class="weui-footer">
+  <view class="weui-footer__links">
+    <navigator url="" class="weui-footer__link">上海物联网科技有限公司</navigator>
+</view>
+<view class="weui-footer__text">Copyright © 程序媛专用</view>
+
+  </view><!--未设置页脚-->
+  
+</view>
