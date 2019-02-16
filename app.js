@@ -33,13 +33,13 @@ App({
         let sessionId = wx.getStorageSync('sessionId');
         if(sessionId)
         {
-          
+        var app=getApp();
         console.log('sessionId:'+sessionId)
             wx.getUserInfo({
               success: function (res) {
                 console.log(res)
                 wx.request({
-                  url: 'https://www.zyldingfang.com/weixin/account/DecodeEncryptedData',
+                  url: app.globalData.site+'/weixin/account/DecodeEncryptedData',
                   data: {type:'USERINFO', sessionId: sessionId, encryptedData: res.encryptedData,iv:res.iv },
                   method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                   header: {
@@ -47,8 +47,8 @@ App({
                   },// 设置请求的 header
                   success: function (res) {
                     console.log(res)
-                    console.log(res.data.openid)
-                    
+                    console.log(res.data.decodedEntity.openId)
+                    app.globalData.openid = res.data.decodedEntity.openId
                   },
                   fail: function () {
                     console.log("index.js wx.request CheckCallUser fail");
@@ -68,6 +68,8 @@ App({
     })
           },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    site:'https://www.zyldingfang.com',
+    openid:''
   }
 })
