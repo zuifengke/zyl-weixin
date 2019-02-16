@@ -17,6 +17,8 @@ App({
             console.log(res)
             if (res.data.msg == 'OK') {
               console.log(res.data.sessionId)
+              //缓存sessionId
+              wx.setStorageSync('sessionId', res.data.sessionId);//保存Cookie到Storage
             } else {
               console.log(res.data.msg);
             }
@@ -28,14 +30,18 @@ App({
             // complete
           }
         })
-        console.log(res)
+        let sessionId = wx.getStorageSync('sessionId');
+        if(sessionId)
+        {
+          
+        console.log('sessionId:'+sessionId)
             wx.getUserInfo({
               success: function (res) {
                 console.log(res)
                 wx.request({
-                  url: 'https://www.zyldingfang.com/weixin/account/WxLogin',
-                  data: { code: code, encryptedData: res.encryptedData,iv:res.iv,userinfo:res.rawData },
-                  method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                  url: 'https://www.zyldingfang.com/weixin/account/DecodeEncryptedData',
+                  data: {type:'USERINFO', sessionId: sessionId, encryptedData: res.encryptedData,iv:res.iv },
+                  method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                   header: {
                     'content-type': 'application/json'
                   },// 设置请求的 header
@@ -43,10 +49,6 @@ App({
                     console.log(res)
                     console.log(res.data.openid)
                     
-                    if (res.statusCode == 200) {
-                    } else {
-                      console.log("index.js wx.request CheckCallUser statusCode" + res.statusCode);
-                    }
                   },
                   fail: function () {
                     console.log("index.js wx.request CheckCallUser fail");
@@ -61,6 +63,7 @@ App({
                 console.log(res)
               }
             })
+        }
       }
     })
           },
