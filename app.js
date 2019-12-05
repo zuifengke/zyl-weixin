@@ -6,23 +6,49 @@ App({
     wx.login({
       success: res => {
         code = res.code;
+        wx.request({
+          url: 'https://www.zyldingfang.com/weixin/account/OnLogin',
+          data:{code,code},
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          header: {
+            'content-type': 'application/json'
+          },// 设置请求的 header
+          success: function (res) {
+            console.log(res)
+            if (res.data.msg == 'OK') {
+              console.log(res.data.sessionId)
+              //缓存sessionId
+              wx.setStorageSync('sessionId', res.data.sessionId);//保存Cookie到Storage
+            } else {
+              console.log(res.data.msg);
+            }
+          },
+          fail: function () {
+            console.log("index.js wx.request CheckCallUser fail");
+          },
+          complete: function () {
+            // complete
+          }
+        })
+        let sessionId = wx.getStorageSync('sessionId');
+        if(sessionId)
+        {
+        var app=getApp();
+        console.log('sessionId:'+sessionId)
             wx.getUserInfo({
               success: function (res) {
+                console.log(res)
                 wx.request({
-                  url: 'https://www.zyldingfang.com/weixin/account/WxLogin',
-                  data: { code: code, encryptedData: res.encryptedData,iv:res.iv },
-                  method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+                  url: app.globalData.site+'/weixin/account/DecodeEncryptedData',
+                  data: {type:'USERINFO', sessionId: sessionId, encryptedData: res.encryptedData,iv:res.iv },
+                  method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
                   header: {
                     'content-type': 'application/json'
                   },// 设置请求的 header
                   success: function (res) {
                     console.log(res)
-                    console.log(res.data.openid)
-                    
-                    if (res.statusCode == 200) {
-                    } else {
-                      console.log("index.js wx.request CheckCallUser statusCode" + res.statusCode);
-                    }
+                    console.log(res.data.decodedEntity.openId)
+                    app.globalData.openid = res.data.decodedEntity.openId
                   },
                   fail: function () {
                     console.log("index.js wx.request CheckCallUser fail");
@@ -37,10 +63,13 @@ App({
                 console.log(res)
               }
             })
+        }
       }
     })
           },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    site:'https://www.zyldingfang.com',
+    openid:''
   }
 })
