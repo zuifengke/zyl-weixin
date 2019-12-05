@@ -1,0 +1,9 @@
+@import "../../tpls/homep/homep.wxss";
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}

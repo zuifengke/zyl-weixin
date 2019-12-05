@@ -1,0 +1,40 @@
+.coll-product {
+  padding: 25rpx 20rpx 15rpx;
+}
+
+.coll-product-l {
+  width: 35%;
+}
+
+.coll-product-l image {
+  height: 230rpx;
+  width: 220rpx;
+}
+
+.coll-product-r {
+  width: 65%;
+  height: 240rpx;
+}
+
+.coll-product-r-t {
+  font-size: 32rpx;
+  line-height: 42rpx;
+  overflow: hidden;
+  height: 42rpx;
+}
+
+.coll-product-r-m {
+  color:#adadad;
+  font-size: 28rpx;
+  line-height: 42rpx;
+  height:42rpx;
+  overflow:hidden;
+}
+.coll-product-r-d{
+  margin-top:25rpx;
+}
+.coll-product-r-d-l{
+  color: #bebebe;
+  line-height: 35rpx;
+  font-size:28rpx;
+}
