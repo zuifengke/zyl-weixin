@@ -1,0 +1,57 @@
+Page({
+  data:{
+    canIUse:wx.canIUse('button.open-type.getUserInfo')
+  },
+  onLoad:function(options){
+    var that=this;
+    wx.getSetting({
+      success:function(res){
+        if(res.authSetting['scope.userInfo'])
+        wx.getUserInfo({
+          success:function(res){
+            that.setData({
+              user_name:res.userInfo.nickName
+            });
+          }
+        })
+      }
+    })
+  },
+  address:function(event){
+    wx.navigateTo({
+      url:'../address/addressall/addressall'
+    })
+  },
+  myorder:function(event){
+    wx.navigateTo({
+      url:'../orderall/index'
+    })
+  },
+  set:function(event){
+    wx.navigateTo({
+      url:'../user/set/set'
+    })
+  },
+  //收藏
+  collect:function(event){
+    wx.navigateTo({
+      url: '../user/collect/collect',
+    })
+  },
+  //历史浏览
+  history:function(event){
+    wx.navigateTo({
+      url:'../user/history/history'
+    })
+  },
+  //绑定手机号
+  mobile:function(event){
+    wx.navigateTo({
+      url:'../user/mobile/mobile'
+    })
+  },
+  /*下拉刷新页面 */
+  onPullDownReresh:function(){
+    wx.stopPullDownRefresh();
+  }
+})
