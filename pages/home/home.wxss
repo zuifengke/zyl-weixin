@@ -1,4 +1,4 @@
-@import "../../tpls/homep/homep.wxss";
+@import "../tpls/homep/homep.wxss";
 
 .fl {
   float: left;

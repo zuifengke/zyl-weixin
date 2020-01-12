@@ -1,32 +1,32 @@
 Page({
-  data:{
+  data: {
 
   },
-  onLoad:function(options){
+  onLoad: function(options) {
 
   },
-  onReady:function(){
+  onReady: function() {
 
   },
-  onShow:function(){
+  onShow: function() {
 
   },
-  onHide:function(){
+  onHide: function() {
 
   },
-  onUnload:function(){
+  onUnload: function() {
 
   },
-  onPullDownRefresh:function(){
+  onPullDownRefresh: function() {
 
   },
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom:function(){
+  onReachBottom: function() {
 
   },
-  onShareAppMessage:function(){
-    
+  onShareAppMessage: function() {
+
   }
 })
